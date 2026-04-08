@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+app/AppCodeExplanation.md
+
+app/AppRouterVsPagesRouter.md
