@@ -1,8 +1,41 @@
 import Link from "next/link";
 import Card from "@/app/components/Card";
 import Pagination from "@/app/components/Pagination";
-import { fetchPostsWithCount } from "@/app/services/api";
-import { Suspense } from "react";
+import { fetchPost, fetchPostsWithCount } from "@/app/services/api";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}): Promise<Metadata> {
+  const params = await searchParams;
+  const page = Number(params.page) || 1;
+  const { totalPages } = await fetchPostsWithCount(page);
+
+  const title = `pageRouter - Page ${page}`;
+  const description = `Browse posts from our collection. Page ${page} of ${totalPages}.`;
+  const postBody = await fetchPostsWithCount(page);
+  const url = `/?page=${page}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      images: [
+        {
+          url: `https://picsum.photos/1200/630?random=${page}`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+  };
+}
 
 export default async function HomePage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
   const params = await searchParams;

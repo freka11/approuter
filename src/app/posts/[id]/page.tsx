@@ -1,5 +1,28 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { fetchPost, type Post } from "@/app/services/api";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const post = await fetchPost(id);
+
+  return {
+    title: "Approuter-"+post.title,
+    description: `ID: ${post.id} , body: ${post.body}`,
+    keywords: [
+      "nextjs",
+      "react",
+      "app router",
+      "posts",
+      `post-${post.id}`,
+    ],
+    other: {
+      "post:userId": String(post.userId),
+      "post:title": post.title,
+      "post:body": post.body,
+    },
+  };
+}
 
 export default async function PostPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
