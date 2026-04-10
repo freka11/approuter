@@ -1,22 +1,22 @@
 import Link from "next/link";
 import Card from "@/app/components/Card";
 import Pagination from "@/app/components/Pagination";
-import { fetchPost, fetchPostsWithCount } from "@/app/services/api";
+import { fetchPostsWithCount } from "@/app/services/api";
 import type { Metadata } from "next";
 
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: { page?: string };
 }): Promise<Metadata> {
   const params = await searchParams;
   const page = Number(params.page) || 1;
-  const { totalPages } = await fetchPostsWithCount(page);
+  const { totalPages, posts } = await fetchPostsWithCount(page);
 
-  const title = `pageRouter - Page ${page}`;
+  const title = `App Router- Page ${page}`;
   const description = `Browse posts from our collection. Page ${page} of ${totalPages}.`;
-  const postBody = await fetchPostsWithCount(page);
-  const url = `/?page=${page}`;
+  const img = "https://via.placeholder.com/1200x630.png?text=App+Router";
+ 
 
   return {
     title,
@@ -24,15 +24,38 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url,
       images: [
         {
-          url: `https://picsum.photos/1200/630?random=${page}`,
+          url: img,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: "App Router",
         },
       ],
+
+    },
+    twitter: {
+      card: "summary",
+      title,
+      images: [
+        {
+          url: img,
+          width: 1200,
+          height: 630,
+          alt: "App Router",
+        },
+      ],
+      description,
+    },
+    keywords: [
+      "nextjs",
+      "react",
+      "app router",
+      "posts",
+      `page-${page}`,
+    ],
+    other: {
+      "page:posts": JSON.stringify(posts.map((p) => ({ id: p.id, userId: p.userId, title: p.title, body: p.body }))),
     },
   };
 }
@@ -49,7 +72,7 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
       </div>
 
       <div className="mx-auto max-w-6xl">
-        {posts.length === 0 ? (
+        { posts.length === 0 ? (
           <div className="rounded-3xl border border-slate-200 bg-white p-6 text-slate-700">
             <p className="text-lg font-semibold">No posts found.</p>
           </div>

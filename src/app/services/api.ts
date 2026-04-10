@@ -7,7 +7,6 @@ const POSTS_API_BASE = "https://jsonplaceholder.typicode.com";
 export type Post = {
   userId: number;
   id: number;
-  imageUrl: string;
   title: string;
   body: string;
 };
