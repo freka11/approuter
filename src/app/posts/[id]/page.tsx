@@ -7,7 +7,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   const post = await fetchPost(id);
   const title="Approuter-"+post.title;
   const description=`ID: ${post.id} , body: ${post.body}`;
-  const img = "/globe.svg";
+  const img = `https://picsum.photos/400/200?random=${post.id}`;
   return {
     title,
     description,

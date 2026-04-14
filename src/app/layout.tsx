@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/globe.svg",
+        url: "https://picsum.photos/400/200?random=1",
         width: 1200,
         height: 630,
         alt: "App Router",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "App Router",
     description: "A Next.js application built with App Router featuring posts ",
-    images: ["/globe.svg"],
+    images: ["https://picsum.photos/400/200?random=1"],
   },
 
 };

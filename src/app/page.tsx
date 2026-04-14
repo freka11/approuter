@@ -15,7 +15,7 @@ export async function generateMetadata({
 
   const title = `App Router- Page ${page}`;
   const description = `Browse posts from our collection. Page ${page} of ${totalPages}.`;
-  const img = "/globe.svg";
+  const img = `https://picsum.photos/400/200?random=${page}`;
 
   return {
     title,
