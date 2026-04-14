@@ -7,7 +7,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   const post = await fetchPost(id);
   const title="Approuter-"+post.title;
   const description=`ID: ${post.id} , body: ${post.body}`;
-  const img = `https://picsum.photos/400/200?random=${post.id}`;
+  const img = `https://picsum.photos/id/${post.id}/400/200`;
   return {
     title,
     description,
@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
       images: [
         {
           url: img,
-          width: 1200,
-          height: 630,
+          width: 400,
+          height: 200,
           alt: title,
         },
       ],
@@ -55,7 +55,7 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
             <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Post #{post.id}</p>
           </div>
           <img
-            src={`https://picsum.photos/1200/500?random=${post.id}`}
+            src={`https://picsum.photos/id/${post.id}/1200/500`}
             alt={post.title}
             className="w-full h-72 object-cover rounded-3xl"
           />
