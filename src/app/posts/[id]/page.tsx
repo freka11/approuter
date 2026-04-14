@@ -7,18 +7,29 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   const post = await fetchPost(id);
   const title="Approuter-"+post.title;
   const description=`ID: ${post.id} , body: ${post.body}`;
+  const img = "/globe.svg";
   return {
     title,
     description,
     openGraph: {
       title,
       description,
+      url: `/posts/${post.id}`,
+      images: [
+        {
+          url: img,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
 
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
+      images: [img],
     },
     keywords: [
       "nextjs",

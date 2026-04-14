@@ -12,6 +12,37 @@ export const metadata: Metadata = {
 
   keywords: ["nextjs", "react", "app router", "posts", "blog"],
 
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+
+  openGraph: {
+    siteName: "App Router",
+    type: "website",
+    images: [
+      {
+        url: "/globe.svg",
+        width: 1200,
+        height: 630,
+        alt: "App Router",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "App Router",
+    description: "A Next.js application built with App Router featuring posts ",
+    images: ["/globe.svg"],
+  },
+
 };
 
 

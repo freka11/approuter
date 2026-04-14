@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>;
 }): Promise<Metadata> {
   const params = await searchParams;
   const page = Number(params.page) || 1;
@@ -15,8 +15,7 @@ export async function generateMetadata({
 
   const title = `App Router- Page ${page}`;
   const description = `Browse posts from our collection. Page ${page} of ${totalPages}.`;
-  const img = "https://via.placeholder.com/1200x630.png?text=App+Router";
- 
+  const img = "/globe.svg";
 
   return {
     title,
@@ -24,6 +23,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
+      url: `/?page=${page}`,
       images: [
         {
           url: img,
@@ -35,16 +35,9 @@ export async function generateMetadata({
 
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
-      images: [
-        {
-          url: img,
-          width: 1200,
-          height: 630,
-          alt: "App Router",
-        },
-      ],
+      images: [img],
       description,
     },
     keywords: [
